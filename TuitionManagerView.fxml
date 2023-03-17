@@ -167,8 +167,6 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextArea prefHeight="200.0" GridPane.columnIndex="1" />
-                                        <TextArea prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label styleClass="LabelText" text="Date of Birth" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <GridPane.margin>
                                                 <Insets left="25.0" />
@@ -180,13 +178,15 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextArea prefHeight="41.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <buttons>
                                                 <Button alignment="CENTER" mnemonicParsing="false" text="Drop" />
                                                 <Button alignment="CENTER" mnemonicParsing="false" text="Enroll" />
                                             </buttons>
                                         </ButtonBar>
+                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                     <padding>
                                         <Insets right="20.0" />
@@ -223,8 +223,6 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextArea prefHeight="200.0" GridPane.columnIndex="1" />
-                                        <TextArea prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label styleClass="LabelText" text="Date of Birth" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <GridPane.margin>
                                                 <Insets left="25.0" />
@@ -236,12 +234,14 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextArea prefHeight="41.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <buttons>
                                                 <Button alignment="CENTER" mnemonicParsing="false" text="Update Scholarship Amount" />
                                             </buttons>
                                         </ButtonBar>
+                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField prefHeight="26.0" prefWidth="182.0" promptText="\$" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                     <padding>
                                         <Insets right="20.0" />
