@@ -109,7 +109,7 @@ public class Resident extends Student{
             return (creditsEnrolled * CREDIT_PER_HOUR_FEE) + ((UNIVERSITY_FEE/100.0) * FULL_TIME_RATE);
         }
         else{   //12 - 16 CREDITS
-            return RESIDENT_FEE + UNIVERSITY_FEE;
+            return (RESIDENT_FEE + UNIVERSITY_FEE) - getScholarship();
         }
     }
     /**
