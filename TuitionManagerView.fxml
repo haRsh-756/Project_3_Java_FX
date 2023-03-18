@@ -236,7 +236,7 @@
                                         </Label>
                                         <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <buttons>
-                                                <Button fx:id="updateSchpAmount" alignment="CENTER" mnemonicParsing="false" text="Update Scholarship Amount" />
+                                                <Button fx:id="updateSchpAmount" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateSchpAmount" text="Update Scholarship Amount" />
                                             </buttons>
                                         </ButtonBar>
                               <TextField fx:id="schp_fname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />

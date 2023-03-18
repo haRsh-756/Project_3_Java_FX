@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -49,9 +48,7 @@ public class TuitionManagerController implements Initializable {
     @FXML private Button drop;
     @FXML private Button enroll;
     @FXML private Button changerMajor;
-
     @FXML private ComboBox<String> comboBox;
-
     @FXML private TextField roster_creditsCompleted;
     @FXML private TextField enroll_Credits;
     @FXML private TextField enroll_fname;
@@ -272,18 +269,18 @@ public class TuitionManagerController implements Initializable {
      */
     private void processAndInsert_FROM_FILE(){
         try{
-            Stage stage = new Stage();
+            /*Stage stage = new Stage();
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
             File selectedFile = fileChooser.showOpenDialog(stage);
-            if(selectedFile != null)
-                if(!selectedFile.getName().endsWith(".txt")) {
+            if(selectedFile != null) {
+                if (!selectedFile.getName().endsWith(".txt")) {
                     throw new IllegalArgumentException("Invalid file format. Only .txt files are allowed.");
                 }
-
-            Scanner scnr = new Scanner(selectedFile);
-            //Scanner scnr = new Scanner(new File("studentList.txt"));
-            while(scnr.hasNext()) {
+            }
+            Scanner scnr = new Scanner(selectedFile);*/
+            Scanner scnr = new Scanner(new File("studentList.txt"));
+            while (scnr.hasNext()) {
                 String[] dataArr = scnr.nextLine().trim().split("[\\s+,]");
                 String studentType = dataArr[0];
                 String fname = dataArr[1];
@@ -294,7 +291,7 @@ public class TuitionManagerController implements Initializable {
                     //System.out.println("Major code invalid: " + major);
                     return;
                 }
-                addStudentType_FROMFILE_HELPER(dataArr,studentType,fname,lname,dob,major);
+                addStudentType_FROMFILE_HELPER(dataArr, studentType, fname, lname, dob, major);
             }
             messageArea.setStyle(successMessage);
             messageArea.setText("Students loaded to the roster.");
@@ -438,7 +435,6 @@ public class TuitionManagerController implements Initializable {
      * credits enrolled
      */
     private void printTuitionDue(){
-        messageArea.clear();
         messageArea.setStyle(successMessage);
         if(enrollment.isEmpty()){
             messageArea.setText("Enrollment is empty!");
@@ -480,9 +476,9 @@ public class TuitionManagerController implements Initializable {
      */
     private void ApplyScholarship(){
         try {
+            messageArea.setStyle(errorMessage);
             if(!getMissingDataStatusForSchp()) {
                 currentTabData();
-                messageArea.setStyle(errorMessage);
                 Student student = roster.getStudent(new Profile(fname,lname,new Date(dob)));
                 EnrollStudent enrollStudent = enrollment.lookupEnrollStudent(new Profile(fname,lname,new Date(dob)));
                 if(student == null){
@@ -540,7 +536,6 @@ public class TuitionManagerController implements Initializable {
                 student.setCreditCompleted(student.getCreditCompleted() + creditsEnrolled);
             }
         }
-        messageArea.clear();
         messageArea.setStyle(successMessage);
         messageArea.appendText("Credit completed has been updated." + "\n");
         printStudentsEligibleForGraduation();
@@ -552,7 +547,7 @@ public class TuitionManagerController implements Initializable {
     private void enrollmentList(){
         messageArea.setStyle(successMessage);
         if(!enrollment.isEmpty()){
-            enrollment.print(messageArea);
+            messageArea.setText(enrollment.print());
         }
         else{
             messageArea.setText("Enrollment is empty!");
@@ -729,21 +724,24 @@ public class TuitionManagerController implements Initializable {
     @FXML
     protected void handleRosterMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
-        byProfile.setOnAction(event1 -> roster.print(messageArea));
-        bySchoolMajor.setOnAction(event12 -> roster.printBySchoolMajor(messageArea));
-        byStanding.setOnAction(event13 -> roster.printByStanding(messageArea));
+        messageArea.clear();
+        byProfile.setOnAction(event1 -> messageArea.setText(roster.print()));
+        bySchoolMajor.setOnAction(event12 -> messageArea.setText(roster.printBySchoolMajor()));
+        byStanding.setOnAction(event13 -> messageArea.setText(roster.printByStanding()));
     }
     @FXML
     protected void handleSchoolMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
-        RBS.setOnAction(event1 -> roster.printBySchool("RBS",messageArea));
-        SAS.setOnAction(event12 -> roster.printBySchool("SAS",messageArea));
-        SCandI.setOnAction(event13 -> roster.printBySchool("SC&I",messageArea));
-        SOE.setOnAction(event14 -> roster.printBySchool("SOE",messageArea));
+        messageArea.clear();
+        RBS.setOnAction(event1 -> messageArea.setText(roster.printBySchool("RBS")));
+        SAS.setOnAction(event12 -> messageArea.setText(roster.printBySchool("SAS")));
+        SCandI.setOnAction(event13 -> messageArea.setText(roster.printBySchool("SC&I")));
+        SOE.setOnAction(event14 -> messageArea.setText(roster.printBySchool("SOE")));
     }
     @FXML
     protected void handleEnrollmentMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
+        messageArea.clear();
         byEnrollStudents.setOnAction(event1 -> enrollmentList());
         byTuitionDue.setOnAction(event12 -> printTuitionDue());
         bySemEnd.setOnAction(event13 -> updateCreditsCompletedAndPrint());
@@ -768,49 +766,3 @@ public class TuitionManagerController implements Initializable {
         studyAbroad.setDisable(true);
     }
 }
-/*add.setOnAction(this::addStudent);
-        remove.setOnAction(this::removeStudent);
-        changerMajor.setOnAction(this::updateMajor);
-        fromFile.setOnAction(this::LoadFromFile);
-        enroll.setOnAction(this::enrollStudent);
-        drop.setOnAction(this::dropStudent);
-        updateSchpAmount.setOnAction(this::UpdateSchpAmount);*/
-/*@FXML
-    protected void getFirstName(){
-        fname = roster_firstName.getText();
-        fname = enroll_fname.getText();
-        fname = schp_fname.getText();
-    }
-    @FXML
-    protected void getLastName(){
-        lname = roster_lastName.getText();
-        lname = enroll_lname.getText();
-        lname = schp_lname.getText();
-    }
-    @FXML
-    protected void getDob(ActionEvent event){
-        if(roster_dob.getValue() != null) {
-            LocalDate date = roster_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
-        }
-        else if(enroll_dob.getValue() != null){
-            LocalDate date = enroll_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
-        }
-        else if(schp_dob.getValue() != null){
-            LocalDate date = schp_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
-        }
-    }
-    @FXML
-    protected void getCreditsCompleted(){
-        creditsCompleted = Integer.parseInt(roster_creditsCompleted.getText());
-    }
-    @FXML
-    protected void getCreditsEnrolled(){
-        creditsEnrolled = Integer.parseInt(enroll_Credits.getText());
-    }
-    @FXML
-    protected void getSchpAmount(){
-        schpAmnt = Double.parseDouble(schp_Amount.getText());
-    }*/
