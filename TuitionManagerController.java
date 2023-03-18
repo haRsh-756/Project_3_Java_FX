@@ -6,6 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -319,7 +322,17 @@ public class TuitionManagerController implements Initializable {
      */
     private void processAndInsert_FROM_FILE(){
         try{
-            Scanner scnr = new Scanner(new File("studentList.txt"));
+            Stage stage = new Stage();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+            File selectedFile = fileChooser.showOpenDialog(stage);
+
+            if(selectedFile != null)
+                if(!selectedFile.getName().endsWith(".txt")) {
+                    throw new IllegalArgumentException("Invalid file format. Only .txt files are allowed.");
+                }
+
+            Scanner scnr = new Scanner(selectedFile);
             while(scnr.hasNext()) {
                 String[] dataArr = scnr.nextLine().trim().split("[\\s+,]");
                 String studentType = dataArr[0];
@@ -520,7 +533,7 @@ public class TuitionManagerController implements Initializable {
         roster = new Roster();
         enrollment = new Enrollment();
         ObservableList<String> options = FXCollections.observableArrayList(
-                        Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
+                Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
         );
         comboBox.setItems(options);
         nonRes = new ToggleGroup();
