@@ -3,15 +3,18 @@ package com.example.project3fx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.ImageInput;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -34,10 +37,21 @@ public class TuitionManagerController implements Initializable {
     private String fname;
     private String lname;
     private String dob;
-    private int credits;
+    private int creditsCompleted;
+    private int creditsEnrolled;
     private double schpAmnt;
     private String major;
     private boolean isResident = false;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab roster_tab;
+    @FXML
+    private Tab Enroll_DropTab;
+    @FXML
+    private Tab Scholarship_Tab;
+    @FXML
+    private Tab Print_Tab;
     @FXML
     private Button add;
     @FXML
@@ -179,9 +193,7 @@ public class TuitionManagerController implements Initializable {
         try {
             messageArea.setStyle(errorMessage);
             if(!getMissingDataStatusForRoster()) {
-                getFirstName();
-                getLastName();
-                getCreditsCompleted();
+                currentTabData();
                 boolean isStudyABROAD = false;
                 if(!roster.checkAvailableMajor(major)){
                     messageArea.setText("Major code invalid: " + major);
@@ -190,7 +202,7 @@ public class TuitionManagerController implements Initializable {
                 if(studyAbroad.isSelected()){
                     isStudyABROAD = true;
                 }
-                Student s = new International(fname,lname,new Date(dob),Major.valueOf(major),credits,isStudyABROAD);
+                Student s = new International(fname,lname,new Date(dob),Major.valueOf(major), creditsCompleted,isStudyABROAD);
                 checkDetailsAndAdd(s,fname,lname,dob,null,false);
             } else {
                 messageArea.setText("Missing data.");
@@ -205,9 +217,7 @@ public class TuitionManagerController implements Initializable {
         try {
             messageArea.setStyle(errorMessage);
             if (!getMissingDataStatusForRoster()) {
-                getFirstName();
-                getLastName();
-                getCreditsCompleted();
+                currentTabData();
                 String state = "";
                 if (!roster.checkAvailableMajor(major)) {
                     messageArea.setText("Major code invalid: " + major);
@@ -221,7 +231,7 @@ public class TuitionManagerController implements Initializable {
                 } else if (ct.isSelected()) {
                     state = "ct";
                 }
-                Student s = new TriState(fname, lname, new Date(dob), Major.valueOf(major), credits, state);
+                Student s = new TriState(fname, lname, new Date(dob), Major.valueOf(major), creditsCompleted, state);
                 checkDetailsAndAdd(s, fname, lname, dob, state, false);
             }
             else {
@@ -241,10 +251,8 @@ public class TuitionManagerController implements Initializable {
                     messageArea.setText("Major code invalid: " + major);
                     return;
                 }
-                getFirstName();
-                getLastName();
-                getCreditsCompleted();
-                Student s = new Resident(fname, lname,new Date(dob),Major.valueOf(major),credits);
+                currentTabData();
+                Student s = new Resident(fname, lname,new Date(dob),Major.valueOf(major), creditsCompleted);
                 checkDetailsAndAdd(s, fname, lname,dob,null,false);
             }
             else{
@@ -264,14 +272,12 @@ public class TuitionManagerController implements Initializable {
         try {
             messageArea.setStyle(errorMessage);
             if (!getMissingDataStatusForRoster()) {
-                getFirstName();
-                getLastName();
-                getCreditsCompleted();
+                currentTabData();
                 if(!roster.checkAvailableMajor(major)){
                     messageArea.setText("Major code invalid: " + major);
                     return;
                 }
-                Student s = new NonResident(fname,lname,new Date(dob),Major.valueOf(major),credits);
+                Student s = new NonResident(fname,lname,new Date(dob),Major.valueOf(major), creditsCompleted);
                 checkDetailsAndAdd(s,fname,lname,dob,null,false);
             } else {
                 messageArea.setText("Missing data.");
@@ -326,13 +332,13 @@ public class TuitionManagerController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
             File selectedFile = fileChooser.showOpenDialog(stage);
-
             if(selectedFile != null)
                 if(!selectedFile.getName().endsWith(".txt")) {
                     throw new IllegalArgumentException("Invalid file format. Only .txt files are allowed.");
                 }
 
             Scanner scnr = new Scanner(selectedFile);
+            //Scanner scnr = new Scanner(new File("studentList.txt"));
             while(scnr.hasNext()) {
                 String[] dataArr = scnr.nextLine().trim().split("[\\s+,]");
                 String studentType = dataArr[0];
@@ -357,10 +363,94 @@ public class TuitionManagerController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * method checks the details of enroll student with the help of credits enrolled
+     * @param student student object
+     * @param creditsEnrolled enrolled credits of student
+     * @return -1 if invalid credits, on success returns 0
+     */
+    private int checkDetailsOfEnrollStudent(Student student, int creditsEnrolled){
+        messageArea.setStyle(errorMessage);
+        if(student instanceof Resident r){
+            if(!r.isValid(creditsEnrolled)){
+                messageArea.setText("(Resident) " + creditsEnrolled + ": invalid credit hours.");
+                return -1;
+            }
+        }else if(student instanceof NonResident){
+            if(student instanceof TriState t){
+                if(!t.isValid(creditsEnrolled)){
+                    messageArea.setText("(Non-Resident) " + creditsEnrolled + ": invalid credit hours.");
+                    return -1;
+                }
+            }else if(student instanceof International intl){
+                if(!intl.isValid(creditsEnrolled)){
+                    if(intl.isStudyAbroad()){
+                        messageArea.setText("(International studentstudy abroad) " + creditsEnrolled + ": invalid credit hours.");
+                        return -1;
+                    }
+                    else {
+                        messageArea.setText("(International student) " + creditsEnrolled + ": invalid credit hours.");
+                        return -1;
+                    }
+                }
+            }else{
+                NonResident nR = (NonResident) student;
+                if(!nR.isValid(creditsEnrolled)){
+                    messageArea.setText("(Non-Resident) " + creditsEnrolled + ": invalid credit hours.");
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * method checks if student is in roster or not and adds to enrollment on success
+     * @param fname student's first name
+     * @param lname student's last name
+     * @param dob   student's date of birth
+     * @param creditsEnrolled student's credit enrolled
+     */
+    private void checkAndEnrollStudent(String fname, String lname, String dob, int creditsEnrolled){
+        messageArea.setStyle(errorMessage);
+        if(roster.lookup(fname,lname,dob)) {
+            Student student = roster.getStudent(new Profile(fname,lname,new Date(dob)));
+            if (checkDetailsOfEnrollStudent(student, creditsEnrolled) != 0) {
+                return;
+            }
+            EnrollStudent es = new EnrollStudent(fname, lname, new Date(dob), creditsEnrolled);
+            enrollment.add(es);
+            messageArea.setStyle(successMessage);
+            messageArea.setText(es.toString());
+        }
+        else{
+            messageArea.setText("Cannot enroll: " + fname + " " + lname
+                    + " " + dob + " is not in the roster.");
+        }
+    }
+    /**
+     * methods helps to process student data and checks if student
+     * is eligible for enrollment or not
+     */
+    private void processAndEnrollStudent(){
+        try {
+            messageArea.setStyle(errorMessage);
+            if(!getMissingDataStatusForEnroll()){
+                currentTabData();
+                checkAndEnrollStudent(fname,lname,dob,creditsEnrolled);
+            }
+            else {
+                messageArea.setText("Missing data.");
+            }
+        }catch (NumberFormatException e){
+            messageArea.setText("Credits enrolled is not an integer.");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
     private void updateMajor(){
         if(!getMissingDataStatusForRoster() && !roster.isEmpty()){
-            getFirstName();
-            getLastName();
+            currentTabData();
             messageArea.setStyle(successMessage);
             if(!roster.checkAvailableMajor(major)){
                 messageArea.setStyle(errorMessage);
@@ -379,8 +469,7 @@ public class TuitionManagerController implements Initializable {
     private void processAndRemove(){
         try {
             if (!getMissingDataStatusForRoster() && !roster.isEmpty()) {
-                getFirstName();
-                getLastName();
+                currentTabData();
                 messageArea.setStyle(successMessage);
                 if (roster.lookupAndRemove(fname, lname, dob)) {
                     messageArea.setText(fname + " " + lname + " " + dob + " removed from the roster.");
@@ -400,6 +489,148 @@ public class TuitionManagerController implements Initializable {
             e.printStackTrace();
         }
     }
+    /**
+     * this method prints student's tuition based on
+     * credits enrolled
+     */
+    private void printTuitionDue(){
+        messageArea.setStyle(successMessage);
+        if(roster.isEmpty()){
+            messageArea.setText("Student roster is empty!");
+            return;
+        }
+        messageArea.setText("** Tuition due **");
+        EnrollStudent [] enrollStudents = enrollment.getEnrollStudents();
+        DecimalFormat df = new DecimalFormat("##,###.00");
+        for(EnrollStudent enrollStudent: enrollStudents){
+            if(enrollStudent != null) {
+                int creditEnrolled = enrollStudent.getCreditsEnrolled();
+                Student student = roster.getStudent(enrollStudent.getProfile());
+                if (student instanceof Resident resident){
+                    messageArea.setText(enrollStudent.getProfile().toString() + resident.print()
+                            + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(resident.tuitionDue(creditEnrolled)));
+                }
+                else if (student instanceof NonResident nonResident) {
+                    if (student instanceof TriState triState) {
+                        messageArea.setText(enrollStudent.getProfile().toString() + triState.printState()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(triState.tuitionDue(creditEnrolled)));
+                    }
+                    else if (student instanceof International intl) {
+                        messageArea.setText(enrollStudent.getProfile().toString() + intl.print()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(intl.tuitionDue(creditEnrolled)));
+                    }
+                    else {
+                        messageArea.setText(enrollStudent.getProfile().toString() + nonResident.print()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(nonResident.tuitionDue(creditEnrolled)));
+                    }
+                }
+            }
+        }
+        messageArea.setText("* end of tuition due *");
+    }
+
+    /**
+     * this method process student data and helps to
+     * apply scholarship based on student type
+     */
+    private void ApplyScholarship(){
+        try {
+            if(!getMissingDataStatusForSchp()) {
+                currentTabData();
+                messageArea.setStyle(errorMessage);
+                Student student = roster.getStudent(new Profile(fname,lname,new Date(dob)));
+                EnrollStudent enrollStudent = enrollment.lookupEnrollStudent(new Profile(fname,lname,new Date(dob)));
+                if(student == null){
+                    System.out.println(fname + " " + lname + " " + dob + " is not in the roster");
+                    return;
+                }
+                if(student instanceof Resident resident){
+                    resident.setScholarship(schpAmnt);
+                    if(!resident.checkScholarship()){
+                        messageArea.setText(schpAmnt + ": invalid amount.");
+                    } else if (enrollStudent != null && resident.isPartTime(enrollStudent.getCreditsEnrolled())){
+                        messageArea.setText(student.getProfile().toString() + " part time student is not eligible for the scholarship.");
+                    } else{
+                        messageArea.setStyle(successMessage);
+                        messageArea.setText(student.getProfile().toString() + ": scholarship amount updated.");
+                    }
+                } else if(student instanceof NonResident nR){
+                    System.out.println(student.getProfile().toString() + nR.print() + "is not eligible for the scholarship.");
+                }
+            }else{
+                messageArea.setText("Missing data.");
+            }
+        }catch (NumberFormatException e) {
+            messageArea.setText("Amount is not an integer.");
+        }
+    }
+
+    /**
+     * this method list students who are eligible for graduation
+     */
+    private void printStudentsEligibleForGraduation(){
+        System.out.println("** list of students eligible for graduation **");
+        Student [] students = roster.getRoster();
+        final int GRADUATION_CREDITS = 120;
+        for(int i = 0; i < roster.getSize(); i++){
+            if(students[i] != null && students[i].getCreditCompleted() >= GRADUATION_CREDITS){
+                System.out.println(students[i].toString());
+            }
+        }
+    }
+
+    /**
+     * this method updates total credits of student based on current semester's enrollment
+     */
+    private void updateCreditsCompletedAndPrint(){
+        EnrollStudent [] enrollStudents = enrollment.getEnrollStudents();
+        for(int i = 0; i < enrollment.getSize(); i++){
+            if(enrollStudents[i] != null) {
+                Student student = roster.getStudent(enrollStudents[i].getProfile());
+                if (student == null) {
+                    return;
+                }
+                int creditsEnrolled = enrollStudents[i].getCreditsEnrolled();
+                student.setCreditCompleted(student.getCreditCompleted() + creditsEnrolled);
+            }
+        }
+        messageArea.setStyle(successMessage);
+        messageArea.setText("Credit completed has been updated.");
+        printStudentsEligibleForGraduation();
+    }
+
+    /**
+     * this methods print list of enroll students this semester
+     */
+    private void enrollmentList(){
+        messageArea.setStyle(successMessage);
+        if(!enrollment.isEmpty()){
+            messageArea.setText(enrollment.print());
+        }
+        else{
+            messageArea.setText("Enrollment is empty!");
+        }
+    }
+    /**
+     * this method process student data and check if the student exist in enrollment
+     * on success it removes/drop the student from the enrollment
+     */
+    private void checkAndDropStudent(){
+        try {
+            currentTabData();
+            messageArea.setStyle(successMessage);
+            EnrollStudent es = new EnrollStudent(fname,lname,new Date(dob),-1);
+            if(enrollment.contains(es)) {
+                enrollment.remove(es);
+                messageArea.setText(fname + " " + lname + " " + dob + " dropped.");
+            }
+            else{
+                messageArea.setText(fname + " " + lname + " " + dob + " is not enrolled.");
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
+    }
     public boolean getMissingDataStatusForRoster(){
         return roster_firstName.getText().isBlank() || roster_lastName.getText().isBlank()
                 || roster_dob.getValue() == null || roster_creditsCompleted.getText().isBlank();
@@ -413,44 +644,34 @@ public class TuitionManagerController implements Initializable {
                 || schp_dob.getValue() == null || schp_Amount.getText().isBlank();
     }
     @FXML
-    protected void getFirstName(){
-        fname = roster_firstName.getText();
-        fname = enroll_fname.getText();
-        fname = schp_fname.getText();
-    }
-    @FXML
-    protected void getLastName(){
-        lname = roster_lastName.getText();
-        lname = enroll_lname.getText();
-        lname = schp_lname.getText();
-    }
-    @FXML
-    protected void getDob(ActionEvent event){
-        if(roster_dob.getValue() != null) {
-            LocalDate date = roster_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+    protected void currentTabData(){
+        if(roster_tab.isSelected()){
+            fname = roster_firstName.getText();
+            lname = roster_lastName.getText();
+            if(roster_dob.getValue() != null) {
+                LocalDate date = roster_dob.getValue();
+                dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+            }
+            creditsCompleted = Integer.parseInt(roster_creditsCompleted.getText());
         }
-        else if(enroll_dob.getValue() != null){
-            LocalDate date = enroll_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        else if(Enroll_DropTab.isSelected()){
+            fname = enroll_fname.getText();
+            lname = enroll_lname.getText();
+            if(enroll_dob.getValue() != null){
+                LocalDate date = enroll_dob.getValue();
+                dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+            }
+            creditsEnrolled = Integer.parseInt(enroll_Credits.getText());
         }
-        else if(schp_dob.getValue() != null){
-            LocalDate date = schp_dob.getValue();
-            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        else if(Scholarship_Tab.isSelected()){
+            fname = schp_fname.getText();
+            lname = schp_lname.getText();
+            if(schp_dob.getValue() != null){
+                LocalDate date = schp_dob.getValue();
+                dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+            }
+            schpAmnt = Double.parseDouble(schp_Amount.getText());
         }
-    }
-    @FXML
-    protected void getCreditsCompleted(){
-        if(!getMissingDataStatusForRoster()) {
-            credits = Integer.parseInt(roster_creditsCompleted.getText());
-        }
-        else if(!getMissingDataStatusForEnroll()) {
-            credits = Integer.parseInt(enroll_Credits.getText());
-        }
-    }
-    @FXML
-    protected void getSchpAmount(){
-        schpAmnt = Double.parseDouble(schp_Amount.getText());
     }
     @FXML
     protected void handleTriState(ActionEvent event){
@@ -521,6 +742,14 @@ public class TuitionManagerController implements Initializable {
         }
     }
     @FXML
+    protected void enrollStudent(ActionEvent event){
+        processAndEnrollStudent();
+    }
+    @FXML
+    protected void dropStudent(ActionEvent event){
+        checkAndDropStudent();
+    }
+    @FXML
     protected void removeStudent(ActionEvent event) {
         processAndRemove();
     }
@@ -528,12 +757,22 @@ public class TuitionManagerController implements Initializable {
     protected void updateMajor(ActionEvent event) {
         updateMajor();
     }
+    @FXML
+    protected void UpdateSchpAmount(ActionEvent event){
+        ApplyScholarship();
+    }
+    @FXML
+    protected void handleRosterMenuItems(ActionEvent event){
+        byProfile.setOnAction(event1 -> {
+            //messageArea.setText();
+        });
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         roster = new Roster();
         enrollment = new Enrollment();
         ObservableList<String> options = FXCollections.observableArrayList(
-                Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
+                        Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
         );
         comboBox.setItems(options);
         nonRes = new ToggleGroup();
@@ -552,6 +791,47 @@ public class TuitionManagerController implements Initializable {
         remove.setOnAction(this::removeStudent);
         changerMajor.setOnAction(this::updateMajor);
         fromFile.setOnAction(this::LoadFromFile);
-        //enroll.setOnAction();
+        enroll.setOnAction(this::enrollStudent);
+        drop.setOnAction(this::dropStudent);
+        updateSchpAmount.setOnAction(this::UpdateSchpAmount);
     }
 }
+/*@FXML
+    protected void getFirstName(){
+        fname = roster_firstName.getText();
+        fname = enroll_fname.getText();
+        fname = schp_fname.getText();
+    }
+    @FXML
+    protected void getLastName(){
+        lname = roster_lastName.getText();
+        lname = enroll_lname.getText();
+        lname = schp_lname.getText();
+    }
+    @FXML
+    protected void getDob(ActionEvent event){
+        if(roster_dob.getValue() != null) {
+            LocalDate date = roster_dob.getValue();
+            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        }
+        else if(enroll_dob.getValue() != null){
+            LocalDate date = enroll_dob.getValue();
+            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        }
+        else if(schp_dob.getValue() != null){
+            LocalDate date = schp_dob.getValue();
+            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        }
+    }
+    @FXML
+    protected void getCreditsCompleted(){
+        creditsCompleted = Integer.parseInt(roster_creditsCompleted.getText());
+    }
+    @FXML
+    protected void getCreditsEnrolled(){
+        creditsEnrolled = Integer.parseInt(enroll_Credits.getText());
+    }
+    @FXML
+    protected void getSchpAmount(){
+        schpAmnt = Double.parseDouble(schp_Amount.getText());
+    }*/
