@@ -172,7 +172,7 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <DatePicker prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="enroll_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <Label styleClass="LabelText" text="Credits Completed" GridPane.rowIndex="3">
                                             <GridPane.margin>
                                                 <Insets left="25.0" />
@@ -180,13 +180,13 @@
                                         </Label>
                                         <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <buttons>
-                                                <Button alignment="CENTER" mnemonicParsing="false" text="Drop" />
-                                                <Button alignment="CENTER" mnemonicParsing="false" text="Enroll" />
+                                                <Button fx:id="drop" alignment="CENTER" mnemonicParsing="false" text="Drop" />
+                                                <Button fx:id="enroll" alignment="CENTER" mnemonicParsing="false" text="Enroll" />
                                             </buttons>
                                         </ButtonBar>
-                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
-                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="enroll_fname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="enroll_lname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="enroll_Credits" prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                     <padding>
                                         <Insets right="20.0" />
@@ -228,7 +228,7 @@
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <DatePicker prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="schp_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <Label styleClass="LabelText" text="Amount" GridPane.rowIndex="3">
                                             <GridPane.margin>
                                                 <Insets left="25.0" />
@@ -236,12 +236,12 @@
                                         </Label>
                                         <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <buttons>
-                                                <Button alignment="CENTER" mnemonicParsing="false" text="Update Scholarship Amount" />
+                                                <Button fx:id="updateSchpAmount" alignment="CENTER" mnemonicParsing="false" text="Update Scholarship Amount" />
                                             </buttons>
                                         </ButtonBar>
-                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
-                              <TextField prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField prefHeight="26.0" prefWidth="182.0" promptText="\$" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="schp_fname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="schp_lname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="schp_Amount" prefHeight="26.0" prefWidth="182.0" promptText="\$" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                     <padding>
                                         <Insets right="20.0" />
@@ -252,30 +252,30 @@
                 </Tab>
                 <Tab text="Print">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
                             <children>
-                                <MenuBar layoutX="11.0" layoutY="22.0" nodeOrientation="LEFT_TO_RIGHT">
+                                <MenuBar fx:id="menuBar" layoutX="11.0" layoutY="22.0" nodeOrientation="LEFT_TO_RIGHT">
                                     <menus>
-                                        <Menu mnemonicParsing="false" text="Roster">
+                                        <Menu fx:id="rosterMenu" mnemonicParsing="false" text="Roster">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print By Profile" />
-                                                <MenuItem mnemonicParsing="false" text="Print by School &amp; Major" />
-                                                <MenuItem mnemonicParsing="false" text="Print by Standing" />
+                                                <MenuItem fx:id="byProfile" mnemonicParsing="false" text="Print By Profile" />
+                                                <MenuItem fx:id="bySchoolMajor" mnemonicParsing="false" text="Print by School &amp; Major" />
+                                                <MenuItem fx:id="byStanding" mnemonicParsing="false" text="Print by Standing" />
                                             </items>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="School/College">
+                                        <Menu fx:id="school" mnemonicParsing="false" text="School/College">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="RBS" />
-                                                <MenuItem mnemonicParsing="false" text="SAS" />
-                                                <MenuItem mnemonicParsing="false" text="SC&amp;I" />
-                                                <MenuItem mnemonicParsing="false" text="SOE" />
+                                                <MenuItem fx:id="RBS" mnemonicParsing="false" text="RBS" />
+                                                <MenuItem fx:id="SAS" mnemonicParsing="false" text="SAS" />
+                                                <MenuItem fx:id="SCandI" mnemonicParsing="false" text="SC&amp;I" />
+                                                <MenuItem fx:id="SOE" mnemonicParsing="false" text="SOE" />
                                             </items>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="Enrollment">
+                                        <Menu fx:id="enrollmentMenu" mnemonicParsing="false" text="Enrollment">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print Enrolled Students" />
-                                                <MenuItem mnemonicParsing="false" text="Print Tuition Dues" />
-                                                <MenuItem mnemonicParsing="false" text="Semester End" />
+                                                <MenuItem fx:id="byEnrollStudents" mnemonicParsing="false" text="Print Enrolled Students" />
+                                                <MenuItem fx:id="byTuitionDue" mnemonicParsing="false" text="Print Tuition Dues" />
+                                                <MenuItem fx:id="bySemEnd" mnemonicParsing="false" text="Semester End" />
                                             </items>
                                         </Menu>
                                     </menus>

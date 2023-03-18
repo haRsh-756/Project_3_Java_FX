@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -33,11 +32,15 @@ public class TuitionManagerController implements Initializable {
     private String lname;
     private String dob;
     private int credits;
+    private double schpAmnt;
     private String major;
     private boolean isResident = false;
     @FXML
     private Button add;
-
+    @FXML
+    private Button drop;
+    @FXML
+    private Button enroll;
     @FXML
     private Button changerMajor;
 
@@ -46,28 +49,66 @@ public class TuitionManagerController implements Initializable {
 
     @FXML
     private TextField roster_creditsCompleted;
-
+    @FXML
+    private TextField enroll_Credits;
+    @FXML
+    private TextField enroll_fname;
+    @FXML
+    private TextField enroll_lname;
+    @FXML
+    private DatePicker enroll_dob;
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private Menu rosterMenu;
+    @FXML
+    private MenuItem byProfile;
+    @FXML
+    private MenuItem bySchoolMajor;
+    @FXML
+    private MenuItem byStanding;
+    @FXML
+    private Menu school;
+    @FXML
+    private MenuItem RBS;
+    @FXML
+    private MenuItem SAS;
+    @FXML
+    private MenuItem SCandI;
+    @FXML
+    private MenuItem SOE;
+    @FXML
+    private Menu enrollmentMenu;
+    @FXML
+    private MenuItem byEnrollStudents;
+    @FXML
+    private MenuItem byTuitionDue;
+    @FXML
+    private MenuItem bySemEnd;
     @FXML
     private RadioButton ct;
-
+    @FXML
+    private TextField schp_fname;
+    @FXML
+    private TextField schp_lname;
+    @FXML
+    private TextField schp_Amount;
     @FXML
     private TextField roster_firstName;
-
+    @FXML
+    private DatePicker schp_dob;
     @FXML
     private Button fromFile;
-
+    @FXML
+    private Button updateSchpAmount;
     @FXML
     private RadioButton intl;
-
     @FXML
     private TextField roster_lastName;
-
     @FXML
     private TextArea messageArea;
-
     @FXML
     private ToggleGroup nonRes;
-
     @FXML
     private CheckBox nonResident;
 
@@ -90,10 +131,7 @@ public class TuitionManagerController implements Initializable {
     private RadioButton triState;
     private final String errorMessage = "-fx-text-fill: RED;";
     private final String successMessage = "-fx-text-fill: GREEN;";
-    public boolean getMissingDataStatus(){
-        return roster_firstName.getText().isBlank() || roster_lastName.getText().isBlank()
-                || roster_dob.getValue() == null || roster_creditsCompleted.getText().isBlank();
-    }
+
     private boolean checkDetails(Student student, String date){
         if(date == null) {
             return false;
@@ -137,7 +175,7 @@ public class TuitionManagerController implements Initializable {
     private void processAndInsert_INTL_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
-            if(!getMissingDataStatus()) {
+            if(!getMissingDataStatusForRoster()) {
                 getFirstName();
                 getLastName();
                 getCreditsCompleted();
@@ -163,7 +201,7 @@ public class TuitionManagerController implements Initializable {
     private void processAndInsert_TRI_STATE_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
-            if (!getMissingDataStatus()) {
+            if (!getMissingDataStatusForRoster()) {
                 getFirstName();
                 getLastName();
                 getCreditsCompleted();
@@ -194,7 +232,7 @@ public class TuitionManagerController implements Initializable {
     }
     private void processAndInsert_RES_STUDENT(){
         try {
-            if(!getMissingDataStatus()){
+            if(!getMissingDataStatusForRoster()){
                 if(!roster.checkAvailableMajor(major)){
                     messageArea.setStyle(errorMessage);
                     messageArea.setText("Major code invalid: " + major);
@@ -222,7 +260,7 @@ public class TuitionManagerController implements Initializable {
     private void processAndInsert_NON_RES_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
-            if (!getMissingDataStatus()) {
+            if (!getMissingDataStatusForRoster()) {
                 getFirstName();
                 getLastName();
                 getCreditsCompleted();
@@ -307,7 +345,7 @@ public class TuitionManagerController implements Initializable {
         }
     }
     private void updateMajor(){
-        if(!getMissingDataStatus() && !roster.isEmpty()){
+        if(!getMissingDataStatusForRoster() && !roster.isEmpty()){
             getFirstName();
             getLastName();
             messageArea.setStyle(successMessage);
@@ -327,7 +365,7 @@ public class TuitionManagerController implements Initializable {
     }
     private void processAndRemove(){
         try {
-            if (!getMissingDataStatus() && !roster.isEmpty()) {
+            if (!getMissingDataStatusForRoster() && !roster.isEmpty()) {
                 getFirstName();
                 getLastName();
                 messageArea.setStyle(successMessage);
@@ -337,7 +375,7 @@ public class TuitionManagerController implements Initializable {
                     messageArea.setText(fname + " " + lname + " " + dob + " is not in the roster.");
                 }
             }
-            else if (!getMissingDataStatus() && roster.isEmpty()) {
+            else if (!getMissingDataStatusForRoster() && roster.isEmpty()) {
                 messageArea.setStyle(errorMessage);
                 messageArea.setText("Student roster is empty!");
             }
@@ -349,13 +387,29 @@ public class TuitionManagerController implements Initializable {
             e.printStackTrace();
         }
     }
+    public boolean getMissingDataStatusForRoster(){
+        return roster_firstName.getText().isBlank() || roster_lastName.getText().isBlank()
+                || roster_dob.getValue() == null || roster_creditsCompleted.getText().isBlank();
+    }
+    public boolean getMissingDataStatusForEnroll(){
+        return enroll_fname.getText().isBlank() || enroll_lname.getText().isBlank()
+                || enroll_dob.getValue() == null || enroll_Credits.getText().isBlank();
+    }
+    public boolean getMissingDataStatusForSchp(){
+        return schp_fname.getText().isBlank() || schp_lname.getText().isBlank()
+                || schp_dob.getValue() == null || schp_Amount.getText().isBlank();
+    }
     @FXML
     protected void getFirstName(){
         fname = roster_firstName.getText();
+        fname = enroll_fname.getText();
+        fname = schp_fname.getText();
     }
     @FXML
     protected void getLastName(){
         lname = roster_lastName.getText();
+        lname = enroll_lname.getText();
+        lname = schp_lname.getText();
     }
     @FXML
     protected void getDob(ActionEvent event){
@@ -363,10 +417,27 @@ public class TuitionManagerController implements Initializable {
             LocalDate date = roster_dob.getValue();
             dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
         }
+        else if(enroll_dob.getValue() != null){
+            LocalDate date = enroll_dob.getValue();
+            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        }
+        else if(schp_dob.getValue() != null){
+            LocalDate date = schp_dob.getValue();
+            dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+        }
     }
     @FXML
     protected void getCreditsCompleted(){
-        credits = Integer.parseInt(roster_creditsCompleted.getText());
+        if(!getMissingDataStatusForRoster()) {
+            credits = Integer.parseInt(roster_creditsCompleted.getText());
+        }
+        else if(!getMissingDataStatusForEnroll()) {
+            credits = Integer.parseInt(enroll_Credits.getText());
+        }
+    }
+    @FXML
+    protected void getSchpAmount(){
+        schpAmnt = Double.parseDouble(schp_Amount.getText());
     }
     @FXML
     protected void handleTriState(ActionEvent event){
@@ -467,5 +538,7 @@ public class TuitionManagerController implements Initializable {
         add.setOnAction(this::addStudent);
         remove.setOnAction(this::removeStudent);
         changerMajor.setOnAction(this::updateMajor);
+        fromFile.setOnAction(this::LoadFromFile);
+        //enroll.setOnAction();
     }
 }
