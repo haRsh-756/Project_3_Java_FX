@@ -10,7 +10,7 @@ public class Resident extends Student{
     /**
      * scholarship value instance
      */
-    private int scholarship;
+    private double scholarship;
 
     /**
      * default constructor
@@ -38,7 +38,7 @@ public class Resident extends Student{
      * sets scholarship value
      * @param scholarship  scholarship value
      */
-    public void setScholarship(int scholarship) {
+    public void setScholarship(double scholarship) {
         this.scholarship = scholarship;
     }
 
@@ -68,7 +68,7 @@ public class Resident extends Student{
      * scholarship value
      * @return scholarship value
      */
-    public int getScholarship() {
+    public double getScholarship() {
         return scholarship;
     }
 

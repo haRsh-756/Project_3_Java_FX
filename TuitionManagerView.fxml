@@ -102,11 +102,11 @@
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="164.0" spacing="10.0" GridPane.columnIndex="1" GridPane.valignment="CENTER">
                                                     <children>
-                                                        <RadioButton fx:id="ny" mnemonicParsing="false" text="NY">
+                                                        <RadioButton fx:id="ny" mnemonicParsing="false" onAction="#handleNYandCTbtn" text="NY">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="state" />
                                              </toggleGroup></RadioButton>
-                                                        <RadioButton fx:id="ct" mnemonicParsing="false" text="CT" toggleGroup="$state" />
+                                                        <RadioButton fx:id="ct" mnemonicParsing="false" onAction="#handleNYandCTbtn" text="CT" toggleGroup="$state" />
                                                     </children>
                                                 </HBox>
                                                 <RadioButton fx:id="triState" mnemonicParsing="false" onAction="#handleTriState" text="Tri-State">
@@ -116,7 +116,7 @@
                                                 <RadioButton fx:id="intl" mnemonicParsing="false" onAction="#handleIntl" prefHeight="32.0" prefWidth="92.0" text="International" toggleGroup="$nonRes" GridPane.rowIndex="1" />
                                                 <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="164.0" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                     <children>
-                                                        <CheckBox fx:id="studyAbroad" mnemonicParsing="false" text="Study Abroad" />
+                                                        <CheckBox fx:id="studyAbroad" mnemonicParsing="false" onAction="#handleStudyAbroadCheckBox" text="Study Abroad" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -256,14 +256,14 @@
                             <children>
                                 <MenuBar fx:id="menuBar" layoutX="11.0" layoutY="22.0" nodeOrientation="LEFT_TO_RIGHT">
                                     <menus>
-                                        <Menu fx:id="rosterMenu" mnemonicParsing="false" text="Roster">
+                                        <Menu fx:id="rosterMenu" mnemonicParsing="false" onAction="#handleRosterMenuItems" text="Roster">
                                             <items>
                                                 <MenuItem fx:id="byProfile" mnemonicParsing="false" text="Print By Profile" />
                                                 <MenuItem fx:id="bySchoolMajor" mnemonicParsing="false" text="Print by School &amp; Major" />
                                                 <MenuItem fx:id="byStanding" mnemonicParsing="false" text="Print by Standing" />
                                             </items>
                                         </Menu>
-                                        <Menu fx:id="school" mnemonicParsing="false" text="School/College">
+                                        <Menu fx:id="school" mnemonicParsing="false" onAction="#handleSchoolMenuItems" text="School/College">
                                             <items>
                                                 <MenuItem fx:id="RBS" mnemonicParsing="false" text="RBS" />
                                                 <MenuItem fx:id="SAS" mnemonicParsing="false" text="SAS" />
@@ -271,7 +271,7 @@
                                                 <MenuItem fx:id="SOE" mnemonicParsing="false" text="SOE" />
                                             </items>
                                         </Menu>
-                                        <Menu fx:id="enrollmentMenu" mnemonicParsing="false" text="Enrollment">
+                                        <Menu fx:id="enrollmentMenu" mnemonicParsing="false" onAction="#handleEnrollmentMenuItems" text="Enrollment">
                                             <items>
                                                 <MenuItem fx:id="byEnrollStudents" mnemonicParsing="false" text="Print Enrolled Students" />
                                                 <MenuItem fx:id="byTuitionDue" mnemonicParsing="false" text="Print Tuition Dues" />

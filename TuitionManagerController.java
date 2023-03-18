@@ -3,11 +3,9 @@ package com.example.project3fx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.effect.ImageInput;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -42,110 +40,56 @@ public class TuitionManagerController implements Initializable {
     private double schpAmnt;
     private String major;
     private boolean isResident = false;
-    @FXML
-    private TabPane tabPane;
-    @FXML
-    private Tab roster_tab;
-    @FXML
-    private Tab Enroll_DropTab;
-    @FXML
-    private Tab Scholarship_Tab;
-    @FXML
-    private Tab Print_Tab;
-    @FXML
-    private Button add;
-    @FXML
-    private Button drop;
-    @FXML
-    private Button enroll;
-    @FXML
-    private Button changerMajor;
+    @FXML private TabPane tabPane;
+    @FXML private Tab roster_tab;
+    @FXML private Tab Enroll_DropTab;
+    @FXML private Tab Scholarship_Tab;
+    @FXML private Tab Print_Tab;
+    @FXML private Button add;
+    @FXML private Button drop;
+    @FXML private Button enroll;
+    @FXML private Button changerMajor;
 
-    @FXML
-    private ComboBox<String> comboBox;
+    @FXML private ComboBox<String> comboBox;
 
-    @FXML
-    private TextField roster_creditsCompleted;
-    @FXML
-    private TextField enroll_Credits;
-    @FXML
-    private TextField enroll_fname;
-    @FXML
-    private TextField enroll_lname;
-    @FXML
-    private DatePicker enroll_dob;
-    @FXML
-    private MenuBar menuBar;
-    @FXML
-    private Menu rosterMenu;
-    @FXML
-    private MenuItem byProfile;
-    @FXML
-    private MenuItem bySchoolMajor;
-    @FXML
-    private MenuItem byStanding;
-    @FXML
-    private Menu school;
-    @FXML
-    private MenuItem RBS;
-    @FXML
-    private MenuItem SAS;
-    @FXML
-    private MenuItem SCandI;
-    @FXML
-    private MenuItem SOE;
-    @FXML
-    private Menu enrollmentMenu;
-    @FXML
-    private MenuItem byEnrollStudents;
-    @FXML
-    private MenuItem byTuitionDue;
-    @FXML
-    private MenuItem bySemEnd;
-    @FXML
-    private RadioButton ct;
-    @FXML
-    private TextField schp_fname;
-    @FXML
-    private TextField schp_lname;
-    @FXML
-    private TextField schp_Amount;
-    @FXML
-    private TextField roster_firstName;
-    @FXML
-    private DatePicker schp_dob;
-    @FXML
-    private Button fromFile;
-    @FXML
-    private Button updateSchpAmount;
-    @FXML
-    private RadioButton intl;
-    @FXML
-    private TextField roster_lastName;
-    @FXML
-    private TextArea messageArea;
-    @FXML
-    private ToggleGroup nonRes;
-    @FXML
-    private CheckBox nonResident;
-
-    @FXML
-    private RadioButton ny;
-
-    @FXML
-    private Button remove;
-
-    @FXML
-    private DatePicker roster_dob;
-
-    @FXML
-    private ToggleGroup state;
-
-    @FXML
-    private CheckBox studyAbroad;
-
-    @FXML
-    private RadioButton triState;
+    @FXML private TextField roster_creditsCompleted;
+    @FXML private TextField enroll_Credits;
+    @FXML private TextField enroll_fname;
+    @FXML private TextField enroll_lname;
+    @FXML private DatePicker enroll_dob;
+    @FXML private MenuBar menuBar;
+    @FXML private Menu rosterMenu;
+    @FXML private MenuItem byProfile;
+    @FXML private MenuItem bySchoolMajor;
+    @FXML private MenuItem byStanding;
+    @FXML private Menu school;
+    @FXML private MenuItem RBS;
+    @FXML private MenuItem SAS;
+    @FXML private MenuItem SCandI;
+    @FXML private MenuItem SOE;
+    @FXML private Menu enrollmentMenu;
+    @FXML private MenuItem byEnrollStudents;
+    @FXML private MenuItem byTuitionDue;
+    @FXML private MenuItem bySemEnd;
+    @FXML private RadioButton ct;
+    @FXML private TextField schp_fname;
+    @FXML private TextField schp_lname;
+    @FXML private TextField schp_Amount;
+    @FXML private TextField roster_firstName;
+    @FXML private DatePicker schp_dob;
+    @FXML private Button fromFile;
+    @FXML private Button updateSchpAmount;
+    @FXML private RadioButton intl;
+    @FXML private TextField roster_lastName;
+    @FXML private TextArea messageArea;
+    @FXML private ToggleGroup nonRes;
+    @FXML private CheckBox nonResident;
+    @FXML private RadioButton ny;
+    @FXML private Button remove;
+    @FXML private DatePicker roster_dob;
+    @FXML private ToggleGroup state;
+    @FXML private CheckBox studyAbroad;
+    @FXML private RadioButton triState;
     private final String errorMessage = "-fx-text-fill: RED;";
     private final String successMessage = "-fx-text-fill: GREEN;";
 
@@ -261,7 +205,7 @@ public class TuitionManagerController implements Initializable {
             }
         }catch(NumberFormatException e) {
             messageArea.setStyle(errorMessage);
-            messageArea.setText("Not an integer");
+            messageArea.setText("Credits completed invalid: not an integer!");
         }catch (NullPointerException e1){
             messageArea.setStyle(errorMessage);
             messageArea.setText("Something went wrong");
@@ -494,12 +438,13 @@ public class TuitionManagerController implements Initializable {
      * credits enrolled
      */
     private void printTuitionDue(){
+        messageArea.clear();
         messageArea.setStyle(successMessage);
-        if(roster.isEmpty()){
-            messageArea.setText("Student roster is empty!");
+        if(enrollment.isEmpty()){
+            messageArea.setText("Enrollment is empty!");
             return;
         }
-        messageArea.setText("** Tuition due **");
+        messageArea.appendText("** Tuition due **" + "\n");
         EnrollStudent [] enrollStudents = enrollment.getEnrollStudents();
         DecimalFormat df = new DecimalFormat("##,###.00");
         for(EnrollStudent enrollStudent: enrollStudents){
@@ -507,26 +452,26 @@ public class TuitionManagerController implements Initializable {
                 int creditEnrolled = enrollStudent.getCreditsEnrolled();
                 Student student = roster.getStudent(enrollStudent.getProfile());
                 if (student instanceof Resident resident){
-                    messageArea.setText(enrollStudent.getProfile().toString() + resident.print()
-                            + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(resident.tuitionDue(creditEnrolled)));
+                    messageArea.appendText(enrollStudent.getProfile().toString() + resident.print()
+                            + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(resident.tuitionDue(creditEnrolled)) +"\n");
                 }
                 else if (student instanceof NonResident nonResident) {
                     if (student instanceof TriState triState) {
-                        messageArea.setText(enrollStudent.getProfile().toString() + triState.printState()
-                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(triState.tuitionDue(creditEnrolled)));
+                        messageArea.appendText(enrollStudent.getProfile().toString() + triState.printState()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(triState.tuitionDue(creditEnrolled)) +"\n");
                     }
                     else if (student instanceof International intl) {
-                        messageArea.setText(enrollStudent.getProfile().toString() + intl.print()
-                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(intl.tuitionDue(creditEnrolled)));
+                        messageArea.appendText(enrollStudent.getProfile().toString() + intl.print()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(intl.tuitionDue(creditEnrolled)) + "\n");
                     }
                     else {
-                        messageArea.setText(enrollStudent.getProfile().toString() + nonResident.print()
-                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(nonResident.tuitionDue(creditEnrolled)));
+                        messageArea.appendText(enrollStudent.getProfile().toString() + nonResident.print()
+                                + enrollStudent.printCreditEnrolled() + " tuition due: $" + df.format(nonResident.tuitionDue(creditEnrolled))+"\n");
                     }
                 }
             }
         }
-        messageArea.setText("* end of tuition due *");
+        messageArea.appendText("* end of tuition due *" + "\n");
     }
 
     /**
@@ -541,7 +486,8 @@ public class TuitionManagerController implements Initializable {
                 Student student = roster.getStudent(new Profile(fname,lname,new Date(dob)));
                 EnrollStudent enrollStudent = enrollment.lookupEnrollStudent(new Profile(fname,lname,new Date(dob)));
                 if(student == null){
-                    System.out.println(fname + " " + lname + " " + dob + " is not in the roster");
+                    messageArea.setText(successMessage);
+                    messageArea.setText(fname + " " + lname + " " + dob + " is not in the roster");
                     return;
                 }
                 if(student instanceof Resident resident){
@@ -555,7 +501,7 @@ public class TuitionManagerController implements Initializable {
                         messageArea.setText(student.getProfile().toString() + ": scholarship amount updated.");
                     }
                 } else if(student instanceof NonResident nR){
-                    System.out.println(student.getProfile().toString() + nR.print() + "is not eligible for the scholarship.");
+                    messageArea.setText(student.getProfile().toString() + nR.print() + "is not eligible for the scholarship.");
                 }
             }else{
                 messageArea.setText("Missing data.");
@@ -569,12 +515,12 @@ public class TuitionManagerController implements Initializable {
      * this method list students who are eligible for graduation
      */
     private void printStudentsEligibleForGraduation(){
-        System.out.println("** list of students eligible for graduation **");
+        messageArea.appendText("** list of students eligible for graduation **" + "\n");
         Student [] students = roster.getRoster();
         final int GRADUATION_CREDITS = 120;
         for(int i = 0; i < roster.getSize(); i++){
             if(students[i] != null && students[i].getCreditCompleted() >= GRADUATION_CREDITS){
-                System.out.println(students[i].toString());
+                messageArea.appendText(students[i].toString() + "\n");
             }
         }
     }
@@ -594,8 +540,9 @@ public class TuitionManagerController implements Initializable {
                 student.setCreditCompleted(student.getCreditCompleted() + creditsEnrolled);
             }
         }
+        messageArea.clear();
         messageArea.setStyle(successMessage);
-        messageArea.setText("Credit completed has been updated.");
+        messageArea.appendText("Credit completed has been updated." + "\n");
         printStudentsEligibleForGraduation();
     }
 
@@ -605,7 +552,7 @@ public class TuitionManagerController implements Initializable {
     private void enrollmentList(){
         messageArea.setStyle(successMessage);
         if(!enrollment.isEmpty()){
-            messageArea.setText(enrollment.print());
+            enrollment.print(messageArea);
         }
         else{
             messageArea.setText("Enrollment is empty!");
@@ -617,15 +564,20 @@ public class TuitionManagerController implements Initializable {
      */
     private void checkAndDropStudent(){
         try {
-            currentTabData();
-            messageArea.setStyle(successMessage);
-            EnrollStudent es = new EnrollStudent(fname,lname,new Date(dob),-1);
-            if(enrollment.contains(es)) {
-                enrollment.remove(es);
-                messageArea.setText(fname + " " + lname + " " + dob + " dropped.");
+            messageArea.setStyle(errorMessage);
+            if(!getMissingDataStatusForEnroll()) {
+                currentTabData();
+                messageArea.setStyle(successMessage);
+                EnrollStudent es = new EnrollStudent(fname, lname, new Date(dob), -1);
+                if (enrollment.contains(es)) {
+                    enrollment.remove(es);
+                    messageArea.setText(fname + " " + lname + " " + dob + " dropped.");
+                } else {
+                    messageArea.setText(fname + " " + lname + " " + dob + " is not enrolled.");
+                }
             }
             else{
-                messageArea.setText(fname + " " + lname + " " + dob + " is not enrolled.");
+                messageArea.setText("Missing data.");
             }
         }catch(NullPointerException e){
             e.printStackTrace();
@@ -646,31 +598,31 @@ public class TuitionManagerController implements Initializable {
     @FXML
     protected void currentTabData(){
         if(roster_tab.isSelected()){
-            fname = roster_firstName.getText();
-            lname = roster_lastName.getText();
+            fname = roster_firstName.getText().trim();
+            lname = roster_lastName.getText().trim();
             if(roster_dob.getValue() != null) {
                 LocalDate date = roster_dob.getValue();
                 dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
             }
-            creditsCompleted = Integer.parseInt(roster_creditsCompleted.getText());
+            creditsCompleted = Integer.parseInt(roster_creditsCompleted.getText().trim());
         }
         else if(Enroll_DropTab.isSelected()){
-            fname = enroll_fname.getText();
-            lname = enroll_lname.getText();
+            fname = enroll_fname.getText().trim();
+            lname = enroll_lname.getText().trim();
             if(enroll_dob.getValue() != null){
                 LocalDate date = enroll_dob.getValue();
                 dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
             }
-            creditsEnrolled = Integer.parseInt(enroll_Credits.getText());
+            creditsEnrolled = Integer.parseInt(enroll_Credits.getText().trim());
         }
         else if(Scholarship_Tab.isSelected()){
-            fname = schp_fname.getText();
-            lname = schp_lname.getText();
+            fname = schp_fname.getText().trim();
+            lname = schp_lname.getText().trim();
             if(schp_dob.getValue() != null){
                 LocalDate date = schp_dob.getValue();
                 dob = date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
             }
-            schpAmnt = Double.parseDouble(schp_Amount.getText());
+            schpAmnt = Double.parseDouble(schp_Amount.getText().trim());
         }
     }
     @FXML
@@ -683,6 +635,14 @@ public class TuitionManagerController implements Initializable {
         if(triState.isSelected()){
             studyAbroad.setDisable(true);
         }
+    }
+    @FXML
+    protected void handleNYandCTbtn(ActionEvent event){
+        triState.fire();
+    }
+    @FXML
+    protected void handleStudyAbroadCheckBox(ActionEvent event){
+        intl.fire();
     }
     @FXML
     protected void handleIntl(ActionEvent event){
@@ -712,6 +672,11 @@ public class TuitionManagerController implements Initializable {
             ct.setDisable(true);
             intl.setDisable(true);
             studyAbroad.setDisable(true);
+            triState.setSelected(false);
+            ny.setSelected(false);
+            ct.setSelected(false);
+            intl.setSelected(false);
+            studyAbroad.setSelected(false);
         }
     }
     @FXML
@@ -763,9 +728,25 @@ public class TuitionManagerController implements Initializable {
     }
     @FXML
     protected void handleRosterMenuItems(ActionEvent event){
-        byProfile.setOnAction(event1 -> {
-            //messageArea.setText();
-        });
+        messageArea.setStyle(successMessage);
+        byProfile.setOnAction(event1 -> roster.print(messageArea));
+        bySchoolMajor.setOnAction(event12 -> roster.printBySchoolMajor(messageArea));
+        byStanding.setOnAction(event13 -> roster.printByStanding(messageArea));
+    }
+    @FXML
+    protected void handleSchoolMenuItems(ActionEvent event){
+        messageArea.setStyle(successMessage);
+        RBS.setOnAction(event1 -> roster.printBySchool("RBS",messageArea));
+        SAS.setOnAction(event12 -> roster.printBySchool("SAS",messageArea));
+        SCandI.setOnAction(event13 -> roster.printBySchool("SC&I",messageArea));
+        SOE.setOnAction(event14 -> roster.printBySchool("SOE",messageArea));
+    }
+    @FXML
+    protected void handleEnrollmentMenuItems(ActionEvent event){
+        messageArea.setStyle(successMessage);
+        byEnrollStudents.setOnAction(event1 -> enrollmentList());
+        byTuitionDue.setOnAction(event12 -> printTuitionDue());
+        bySemEnd.setOnAction(event13 -> updateCreditsCompletedAndPrint());
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -775,8 +756,6 @@ public class TuitionManagerController implements Initializable {
                         Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
         );
         comboBox.setItems(options);
-        nonRes = new ToggleGroup();
-        state = new ToggleGroup();
         triState.setToggleGroup(nonRes);
         intl.setToggleGroup(nonRes);
         ct.setToggleGroup(state);
@@ -787,15 +766,15 @@ public class TuitionManagerController implements Initializable {
         ct.setDisable(true);
         intl.setDisable(true);
         studyAbroad.setDisable(true);
-        add.setOnAction(this::addStudent);
+    }
+}
+/*add.setOnAction(this::addStudent);
         remove.setOnAction(this::removeStudent);
         changerMajor.setOnAction(this::updateMajor);
         fromFile.setOnAction(this::LoadFromFile);
         enroll.setOnAction(this::enrollStudent);
         drop.setOnAction(this::dropStudent);
-        updateSchpAmount.setOnAction(this::UpdateSchpAmount);
-    }
-}
+        updateSchpAmount.setOnAction(this::UpdateSchpAmount);*/
 /*@FXML
     protected void getFirstName(){
         fname = roster_firstName.getText();

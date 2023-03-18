@@ -1,5 +1,7 @@
 package com.example.project3fx;
 
+import javafx.scene.control.TextArea;
+
 /**
  * Enrollent class to enroll students
  * @author harsh_patel
@@ -122,11 +124,14 @@ public class Enrollment {
     }
     /**
      * prints enroll students in the enrollment list
+     *
+     * @return
      */
-    public void print() {
+    public void print(TextArea messageArea) {
+        messageArea.clear();
         for(int i = 0; i < size; i++){
             if(enrollStudents[i] != null) {
-                System.out.println(enrollStudents[i].print());
+                messageArea.appendText(enrollStudents[i].print() + "\n");
             }
         }
     } //print the array as is without sorting

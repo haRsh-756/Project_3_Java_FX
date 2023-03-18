@@ -1,4 +1,7 @@
 package com.example.project3fx;
+
+import javafx.scene.control.TextArea;
+
 /**
  * This class shows the roster of students where you can add, find, grow, size, lookup, check to see if it exists and remove students
  * @author harsh_patel and samirroshan
@@ -232,7 +235,7 @@ public class Roster {
      * prints the student in the roster who belong in a particular school
      * @param school the name of the school whose student should be printed
      */
-    public void printBySchool(String school){
+    public void printBySchool(String school, TextArea messageArea){
         for(int i =0; i < size; i++){
             for(int j = i+1; j< size; j++){
                 if(roster[i]!=null && roster[j]!=null) {
@@ -247,9 +250,10 @@ public class Roster {
                 }
             }
         }
+        messageArea.clear();
         for(int i=0; i<size; i++){
             if(roster[i] != null && roster[i].getMajor().getSchool().equalsIgnoreCase(school)) {
-                System.out.println(roster[i].toString());
+                messageArea.appendText(roster[i].toString() + "\n");
             }
         }
     }
@@ -258,7 +262,7 @@ public class Roster {
      * if two students have the same last name then they are stored by their first name
      * if they have the same first name then they are sorted by their date of birth
      */
-    public void print() {
+    public void print(TextArea messageArea) {
         for(int i =0; i < size; i++){
             for(int j = i+1; j< size; j++){
                 if(roster[i]!=null && roster[j]!=null) {
@@ -270,9 +274,10 @@ public class Roster {
                 }
             }
         }
+        messageArea.clear();
         for(int i=0; i<size; i++){
             if(roster[i] != null) {
-                System.out.println(roster[i].toString());
+                 messageArea.appendText(roster[i].toString() + "\n");
             }
         }
     }
@@ -280,7 +285,7 @@ public class Roster {
      * This method prints the roster of student sorted by school major
      * The roster is sorted by school then the by the major within each school
      */
-    public void printBySchoolMajor() {
+    public void printBySchoolMajor(TextArea messageArea) {
         for(int i=0; i<size; i++){
             for(int j=i+1; j<size; j++){
                 if(roster[i]!=null && roster[j]!=null){
@@ -300,9 +305,10 @@ public class Roster {
                 }
             }
         }
+        messageArea.clear();
         for(int i =0; i<size; i++){
             if(roster[i]!=null) {
-                System.out.println(roster[i].toString());
+                messageArea.appendText(roster[i].toString() + "\n");
             }
         }
     } //print roster sorted by school major
@@ -321,7 +327,7 @@ public class Roster {
      * the roster is sorted in sorted by name from a to z by enum type
      * the sorted roster of students is then printed by System.out.print
      */
-    public void printByStanding() {
+    public void printByStanding(TextArea messageArea) {
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j < size; j++) {
                 if (roster[i] != null && roster[j] != null) {
@@ -333,9 +339,10 @@ public class Roster {
                 }
             }
         }
+        messageArea.clear();
         for (int i = 0; i < size; i++) {
             if (roster[i] != null) {
-                System.out.println(roster[i].toString());
+                messageArea.appendText(roster[i].toString() + "\n");
             }
         }
     }
