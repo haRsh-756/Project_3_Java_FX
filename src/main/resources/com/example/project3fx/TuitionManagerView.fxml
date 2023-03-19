@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project3fx.TuitionManagerController">
+    <left>
+        <TabPane fx:id="tabPane" maxHeight="450.0" prefHeight="457.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="TOP_LEFT">
+            <tabs>
+                <Tab fx:id="roster_tab" text="Roster">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutY="5.0" minWidth="-Infinity" prefWidth="600.0" vgap="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.7449035644531" minWidth="10.0" prefWidth="180.5" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="448.68577575683594" minWidth="10.0" prefWidth="399.5" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label styleClass="LabelText" text="First Name" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Date of Birth" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <DatePicker fx:id="roster_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="LabelText" text="Major" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ComboBox fx:id="comboBox" onAction="#getMajor" prefHeight="26.0" prefWidth="207.0" promptText="Select a major" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label styleClass="LabelText" text="Credits Completed" GridPane.rowIndex="4">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Status" GridPane.rowIndex="5">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label GridPane.rowIndex="6">
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <CheckBox fx:id="nonResident" mnemonicParsing="false" onAction="#isNonResident" text="Check if Non-Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <GridPane prefHeight="48.0" prefWidth="404.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="108.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="37.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="164.0" spacing="10.0" GridPane.columnIndex="1" GridPane.valignment="CENTER">
+                                                    <children>
+                                                        <RadioButton fx:id="ny" mnemonicParsing="false" onAction="#handleNYandCTbtn" text="NY">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="state" />
+                                             </toggleGroup></RadioButton>
+                                                        <RadioButton fx:id="ct" mnemonicParsing="false" onAction="#handleNYandCTbtn" text="CT" toggleGroup="$state" />
+                                                    </children>
+                                                </HBox>
+                                                <RadioButton fx:id="triState" mnemonicParsing="false" onAction="#handleTriState" text="Tri-State">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="nonRes" />
+                                       </toggleGroup></RadioButton>
+                                                <RadioButton fx:id="intl" mnemonicParsing="false" onAction="#handleIntl" prefHeight="32.0" prefWidth="92.0" text="International" toggleGroup="$nonRes" GridPane.rowIndex="1" />
+                                                <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="164.0" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                    <children>
+                                                        <CheckBox fx:id="studyAbroad" mnemonicParsing="false" onAction="#handleStudyAbroadCheckBox" text="Study Abroad" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </GridPane>
+                                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                            <buttons>
+                                                <Button fx:id="add" alignment="CENTER" mnemonicParsing="false" onAction="#addStudent" text="Add" />
+                                                <Button fx:id="remove" alignment="CENTER" mnemonicParsing="false" onAction="#removeStudent" text="Remove" />
+                                                <Button fx:id="changerMajor" alignment="CENTER" mnemonicParsing="false" onAction="#updateMajor" text="Change Major" />
+                                                <Button fx:id="fromFile" alignment="CENTER" mnemonicParsing="false" onAction="#LoadFromFile" text="Load From File" />
+                                            </buttons>
+                                        </ButtonBar>
+                              <TextField fx:id="roster_creditsCompleted" prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="roster_lastName" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="roster_firstName" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="Enroll_DropTab" text="Enroll / Drop">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane minWidth="-Infinity" prefHeight="274.0" prefWidth="600.0" vgap="15.0" AnchorPane.topAnchor="20.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.7449035644531" minWidth="10.0" prefWidth="180.5" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="448.68577575683594" minWidth="10.0" prefWidth="399.5" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="5.01275634765625" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="45.134918212890625" minHeight="0.0" prefHeight="44.48724365234375" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label styleClass="LabelText" text="First Name" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Date of Birth" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <DatePicker fx:id="enroll_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="LabelText" text="Credits Completed" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                            <buttons>
+                                                <Button fx:id="drop" alignment="CENTER" mnemonicParsing="false" onAction="#dropStudent" text="Drop" />
+                                                <Button fx:id="enroll" alignment="CENTER" mnemonicParsing="false" onAction="#enrollStudent" text="Enroll" />
+                                            </buttons>
+                                        </ButtonBar>
+                              <TextField fx:id="enroll_fname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="enroll_lname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="enroll_Credits" prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    </children>
+                                    <padding>
+                                        <Insets right="20.0" />
+                                    </padding>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="Scholarship_Tab" text="Scholarship">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane minWidth="-Infinity" prefHeight="274.0" prefWidth="600.0" vgap="15.0" AnchorPane.topAnchor="20.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.7449035644531" minWidth="10.0" prefWidth="180.5" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="448.68577575683594" minWidth="10.0" prefWidth="399.5" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="5.01275634765625" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="45.134918212890625" minHeight="0.0" prefHeight="44.48724365234375" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label styleClass="LabelText" text="First Name" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label styleClass="LabelText" text="Date of Birth" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <DatePicker fx:id="schp_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="LabelText" text="Amount" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets left="25.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ButtonBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                            <buttons>
+                                                <Button fx:id="updateSchpAmount" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateSchpAmount" text="Update Scholarship Amount" />
+                                            </buttons>
+                                        </ButtonBar>
+                              <TextField fx:id="schp_fname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="schp_lname" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="schp_Amount" prefHeight="26.0" prefWidth="182.0" promptText="\$" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    </children>
+                                    <padding>
+                                        <Insets right="20.0" />
+                                    </padding>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="Print_Tab" text="Print">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
+                            <children>
+                                <MenuBar fx:id="menuBar" layoutX="11.0" layoutY="22.0" nodeOrientation="LEFT_TO_RIGHT">
+                                    <menus>
+                                        <Menu fx:id="rosterMenu" mnemonicParsing="false" onAction="#handleRosterMenuItems" text="Roster">
+                                            <items>
+                                                <MenuItem fx:id="byProfile" mnemonicParsing="false" text="Print By Profile" />
+                                                <MenuItem fx:id="bySchoolMajor" mnemonicParsing="false" text="Print by School &amp; Major" />
+                                                <MenuItem fx:id="byStanding" mnemonicParsing="false" text="Print by Standing" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="school" mnemonicParsing="false" onAction="#handleSchoolMenuItems" text="School/College">
+                                            <items>
+                                                <MenuItem fx:id="RBS" mnemonicParsing="false" text="RBS" />
+                                                <MenuItem fx:id="SAS" mnemonicParsing="false" text="SAS" />
+                                                <MenuItem fx:id="SCandI" mnemonicParsing="false" text="SC&amp;I" />
+                                                <MenuItem fx:id="SOE" mnemonicParsing="false" text="SOE" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="enrollmentMenu" mnemonicParsing="false" onAction="#handleEnrollmentMenuItems" text="Enrollment">
+                                            <items>
+                                                <MenuItem fx:id="byEnrollStudents" mnemonicParsing="false" text="Print Enrolled Students" />
+                                                <MenuItem fx:id="byTuitionDue" mnemonicParsing="false" text="Print Tuition Dues" />
+                                                <MenuItem fx:id="bySemEnd" mnemonicParsing="false" text="Semester End" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </left>
+    <bottom>
+        <TextArea fx:id="messageArea" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
+    </bottom>
+</BorderPane>
