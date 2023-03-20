@@ -748,6 +748,11 @@ public class TuitionManagerController implements Initializable {
      * this method updates total credits of student based on current semester's enrollment
      */
     private void updateCreditsCompletedAndPrint(){
+        messageArea.setStyle(successMessage);
+        if(enrollment.isEmpty()){
+            messageArea.setText("Enrollment is empty!");
+            return;
+        }
         EnrollStudent [] enrollStudents = enrollment.getEnrollStudents();
         for(int i = 0; i < enrollment.getSize(); i++){
             if(enrollStudents[i] != null) {
@@ -759,7 +764,6 @@ public class TuitionManagerController implements Initializable {
                 student.setCreditCompleted(student.getCreditCompleted() + creditsEnrolled);
             }
         }
-        messageArea.setStyle(successMessage);
         messageArea.appendText("Credit completed has been updated." + "\n");
         printStudentsEligibleForGraduation();
     }
@@ -1032,11 +1036,16 @@ public class TuitionManagerController implements Initializable {
      */
     @FXML
     protected void handleRosterMenuItems(ActionEvent event){
-        messageArea.setStyle(successMessage);
         messageArea.clear();
-        byProfile.setOnAction(event1 -> messageArea.setText(roster.print()));
-        bySchoolMajor.setOnAction(event12 -> messageArea.setText(roster.printBySchoolMajor()));
-        byStanding.setOnAction(event13 -> messageArea.setText(roster.printByStanding()));
+        messageArea.setStyle(successMessage);
+        if(roster.isEmpty()){
+            messageArea.setText("Roster is empty!");
+        }
+        else {
+            byProfile.setOnAction(event1 -> messageArea.setText(roster.print()));
+            bySchoolMajor.setOnAction(event12 -> messageArea.setText(roster.printBySchoolMajor()));
+            byStanding.setOnAction(event13 -> messageArea.setText(roster.printByStanding()));
+        }
     }
     /**
      * this method handles school menuitems based on user selection and prints message appropriately
@@ -1044,12 +1053,17 @@ public class TuitionManagerController implements Initializable {
      */
     @FXML
     protected void handleSchoolMenuItems(ActionEvent event){
-        messageArea.setStyle(successMessage);
         messageArea.clear();
-        RBS.setOnAction(event1 -> messageArea.setText(roster.printBySchool("RBS")));
-        SAS.setOnAction(event12 -> messageArea.setText(roster.printBySchool("SAS")));
-        SCandI.setOnAction(event13 -> messageArea.setText(roster.printBySchool("SC&I")));
-        SOE.setOnAction(event14 -> messageArea.setText(roster.printBySchool("SOE")));
+        messageArea.setStyle(successMessage);
+        if(roster.isEmpty()){
+            messageArea.setText("Roster is empty!");
+        }
+        else {
+            RBS.setOnAction(event1 -> messageArea.setText(roster.printBySchool("RBS")));
+            SAS.setOnAction(event12 -> messageArea.setText(roster.printBySchool("SAS")));
+            SCandI.setOnAction(event13 -> messageArea.setText(roster.printBySchool("SC&I")));
+            SOE.setOnAction(event14 -> messageArea.setText(roster.printBySchool("SOE")));
+        }
     }
     /**
      * this method handles enrollment menuitems based on user selection and prints message appropriately
@@ -1057,8 +1071,8 @@ public class TuitionManagerController implements Initializable {
      */
     @FXML
     protected void handleEnrollmentMenuItems(ActionEvent event){
-        messageArea.setStyle(successMessage);
         messageArea.clear();
+        messageArea.setStyle(successMessage);
         byEnrollStudents.setOnAction(event1 -> enrollmentList());
         byTuitionDue.setOnAction(event12 -> printTuitionDue());
         bySemEnd.setOnAction(event13 -> updateCreditsCompletedAndPrint());
@@ -1074,7 +1088,7 @@ public class TuitionManagerController implements Initializable {
         roster = new Roster();
         enrollment = new Enrollment();
         ObservableList<String> options = FXCollections.observableArrayList(
-                        Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name(), Major.MATH.name()
+                Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name(), Major.MATH.name()
         );
         comboBox.setItems(options);
         triState.setToggleGroup(nonRes);
