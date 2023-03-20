@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 /**
  * International Test to test isStudyAbroad and tuitionDue
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class InternationalTest {
     /**

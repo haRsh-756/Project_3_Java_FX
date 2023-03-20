@@ -2,7 +2,7 @@ package com.example.project3fx;
 
 /**
  * Enrollent class to enroll students
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class Enrollment {
 

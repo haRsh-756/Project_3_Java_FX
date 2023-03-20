@@ -5,7 +5,7 @@ package com.example.project3fx;
  * This class has the comparable interface
  * so that the students can be sorted and compared by last and
  * first name also their date of birth and by their major and credits completed.
- *  @author samirroshan and harsh_patel
+ *  @author harsh_patel and giancarlo_Andretta
  */
 public abstract class Student implements Comparable<Student>{
     /**

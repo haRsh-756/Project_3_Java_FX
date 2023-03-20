@@ -1,7 +1,7 @@
 package com.example.project3fx;
 /**
  * EnrollStudent class to keep track of enroll students
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class EnrollStudent {
     /**

@@ -7,7 +7,7 @@ package com.example.project3fx;
  *  lname = the last name of the person
  *  fname = the first name of the person
  *  dob = the date of birth of the person
- *  @author samirroshan and harsh_patel
+ *  @author harsh_patel and giancarlo_Andretta
  */
 public class Profile implements Comparable<Profile>{
     private String lname;

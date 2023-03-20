@@ -12,7 +12,7 @@ import java.util.Calendar;
  * Then we make sure if the date, months and years are equal
  * Then in the last method we compare the months n years to see if the both month and year are equal if so then we return today's date minus the given date or we return this month minus given month
  * If the year isn't equal at all then we return this year minus given year and return that
- * @author samirroshan and harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class Date implements Comparable<Date>{
     /**

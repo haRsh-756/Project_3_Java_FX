@@ -2,7 +2,7 @@ package com.example.project3fx;
 
 /**
  * This class shows the roster of students where you can add, find, grow, size, lookup, check to see if it exists and remove students
- * @author harsh_patel and samirroshan
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class Roster {
     /**

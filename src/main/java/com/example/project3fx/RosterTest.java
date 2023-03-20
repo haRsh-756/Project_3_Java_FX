@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 /**
  * Roster Test class with JUNIT test
  * testing add and remove method for international and tri-state objects
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class RosterTest {
     /**

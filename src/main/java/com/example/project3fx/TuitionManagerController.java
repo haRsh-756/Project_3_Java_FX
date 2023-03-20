@@ -17,6 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * controller class to handle tuition manager GUI
+ * and all requests from user
+ * @author harsh_patel, giancarlo_andretta
+ */
 public class TuitionManagerController implements Initializable {
 
     /**
@@ -31,65 +36,246 @@ public class TuitionManagerController implements Initializable {
      * enrollment object instance
      */
     Enrollment enrollment;
+    /**
+     * first name String object instance to store firstName
+     */
     private String fname;
+    /**
+     * last name String object instance to store lastName
+     */
     private String lname;
+    /**
+     *dob String object instance to store date of birth
+     */
     private String dob;
+    /**
+     * creditscompleted datatype to store creditsCompleted of students
+     */
     private int creditsCompleted;
+    /**
+     * creditsenrolled datatype to store credits enrolled of students
+     */
     private int creditsEnrolled;
+    /**
+     *schpAmount datatype to store scholarship amount given to student
+     */
     private double schpAmnt;
+    /**
+     *major String object instance to store major of student
+     */
     private String major;
+    /**
+     * isResident primitive datatype to check if student is resident or not
+     */
     private boolean isResident = false;
+    /**
+     * TabPane object instance
+     */
     @FXML private TabPane tabPane;
+    /**
+     * roster tab object instance
+     */
     @FXML private Tab roster_tab;
+    /**
+     * enroll/drop tab object instance
+     */
     @FXML private Tab Enroll_DropTab;
+    /**
+     * scholarship tab object instance
+     */
     @FXML private Tab Scholarship_Tab;
+    /**
+     * print_tab object instance
+     */
     @FXML private Tab Print_Tab;
+    /**
+     * add button object instance
+     */
     @FXML private Button add;
+    /**
+     * drop button object instance
+     */
     @FXML private Button drop;
+    /**
+     * enroll button object instance
+     */
     @FXML private Button enroll;
+    /**
+     * change major button object instance
+     */
     @FXML private Button changerMajor;
+    /**
+     * combo box object instance to select an item from a list
+     */
     @FXML private ComboBox<String> comboBox;
+    /**
+     * textfield object instance to store student's creditsCompleted
+     */
     @FXML private TextField roster_creditsCompleted;
+    /**
+     *  textfield object instance to store student's enrolled credits
+     */
     @FXML private TextField enroll_Credits;
+    /**
+     * textfield object instance to store first Name of student
+     */
     @FXML private TextField enroll_fname;
+    /**
+     *textfield object instance to store last Name of student
+     */
     @FXML private TextField enroll_lname;
+    /**
+     *textfield object instance to store date of birth of student
+     */
     @FXML private DatePicker enroll_dob;
+    /**
+     * menubar object instance to select a menuitem from menulist
+     */
     @FXML private MenuBar menuBar;
+    /**
+     * menu object instance which will have menuitems
+     */
     @FXML private Menu rosterMenu;
+    /**
+     * menuitem object instance byprofile
+     */
     @FXML private MenuItem byProfile;
+    /**
+     * menuitem object instance bySchoolMajor
+     */
     @FXML private MenuItem bySchoolMajor;
+    /**
+     * menuitem object instance byStanding
+     */
     @FXML private MenuItem byStanding;
+    /**
+     * menu object instance which will have menuitems
+     */
     @FXML private Menu school;
+    /**
+     * menuitem object instance school RBS
+     */
     @FXML private MenuItem RBS;
+    /**
+     *menuitem object instance school SAS
+     */
     @FXML private MenuItem SAS;
+    /**
+     * menuitem object instance school SC&I
+     */
     @FXML private MenuItem SCandI;
+    /**
+     *menuitem object instance school SOE
+     */
     @FXML private MenuItem SOE;
+    /**
+     * menu object instance which will have menuitems
+     */
     @FXML private Menu enrollmentMenu;
+    /**
+     *menuitem object instance enrollStudents
+     */
     @FXML private MenuItem byEnrollStudents;
+    /**
+     * menuitem object instance tuitionDue
+     */
     @FXML private MenuItem byTuitionDue;
+    /**
+     * menuitem object instance semester end
+     */
     @FXML private MenuItem bySemEnd;
+    /**
+     * radio button object instance for state CT
+     */
     @FXML private RadioButton ct;
+    /**
+     * textfield object instance to store first Name of student
+     */
     @FXML private TextField schp_fname;
+    /**
+     * textfield object instance to store last Name of student
+     */
     @FXML private TextField schp_lname;
+    /**
+     * textfield object instance to store scholarship amount of student
+     */
     @FXML private TextField schp_Amount;
+    /**
+     * textfield object instance to store first Name of student
+     */
     @FXML private TextField roster_firstName;
+    /**
+     * textfield object instance to store date of birth of student
+     */
     @FXML private DatePicker schp_dob;
+    /**
+     * button object instance fromFile
+     */
     @FXML private Button fromFile;
+    /**
+     * button object instance to update schp amount
+     */
     @FXML private Button updateSchpAmount;
+    /**
+     *radio button object instance for international
+     */
     @FXML private RadioButton intl;
+    /**
+     * textfield object instance to store last Name of student
+     */
     @FXML private TextField roster_lastName;
+    /**
+     * textArea object instance to output the message to gui
+     */
     @FXML private TextArea messageArea;
+    /**
+     * toggle group object instance to switch between user selection student type
+     */
     @FXML private ToggleGroup nonRes;
+    /**
+     * checkbox object instance to check and uncheck
+     */
     @FXML private CheckBox nonResident;
+    /**
+     *radio button object instance for state NY
+     */
     @FXML private RadioButton ny;
+    /**
+     * button object instance to remove
+     */
     @FXML private Button remove;
+    /**
+     * datePicker object instance to select date
+     */
     @FXML private DatePicker roster_dob;
+    /**
+     * toggle group object instance to switch between user selection state
+     */
     @FXML private ToggleGroup state;
+    /**
+     *checkbox object instance to check and uncheck
+     */
     @FXML private CheckBox studyAbroad;
+    /**
+     * radio button object instance for triState
+     */
     @FXML private RadioButton triState;
+    /**
+     * errorMessage String object instance to print error messages in red color
+     */
     private final String errorMessage = "-fx-text-fill: RED;";
+    /**
+     * successMessage String object instance to print success messages in green color
+     */
     private final String successMessage = "-fx-text-fill: GREEN;";
-
+    /**
+     * checkdetails if the student is old enough or
+     * not to be enrolled in college and
+     * if they have any college credits
+     * @param student object
+     * @param date dob
+     * @return true or false based on above condition
+     */
     private boolean checkDetails(Student student, String date){
         if(date == null) {
             return false;
@@ -109,6 +295,15 @@ public class TuitionManagerController implements Initializable {
         }
         return true;
     }
+    /**
+     * this method checks the details of student adds to the roster
+     * @param s object which is going to be added
+     * @param fname student's first name
+     * @param lname student's last name
+     * @param dob   student's date of birth
+     * @param state for tristate students
+     * @param isFromFile if from file is true then no print messages
+     */
     private void checkDetailsAndAdd(Student s, String fname, String lname, String dob, String state, boolean isFromFile){
         if(state != null && !state.equalsIgnoreCase("NY") && !state.equalsIgnoreCase("CT")){
             messageArea.setStyle(errorMessage);
@@ -129,6 +324,10 @@ public class TuitionManagerController implements Initializable {
             }
         }
     }
+    /**
+     * method helps to process international student data
+     * and also checks the details of student and adds to the roster
+     */
     private void processAndInsert_INTL_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
@@ -153,6 +352,10 @@ public class TuitionManagerController implements Initializable {
             e1.printStackTrace();
         }
     }
+    /**
+     * method helps to process tri state student data
+     * and also checks the details of student and adds to the roster
+     */
     private void processAndInsert_TRI_STATE_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
@@ -183,6 +386,10 @@ public class TuitionManagerController implements Initializable {
             e1.printStackTrace();
         }
     }
+    /**
+     * method helps to process Resident student data
+     * and also checks the details of student and adds to the roster
+     */
     private void processAndInsert_RES_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
@@ -205,6 +412,10 @@ public class TuitionManagerController implements Initializable {
             e1.printStackTrace();
         }
     }
+    /**
+     * method helps to process Non-Resident student data
+     * and also checks the details of student and adds to the roster
+     */
     private void processAndInsert_NON_RES_STUDENT(){
         try {
             messageArea.setStyle(errorMessage);
@@ -261,7 +472,7 @@ public class TuitionManagerController implements Initializable {
         }
     }
     /**
-     * method to process and add students from file
+     * method to process and add students from given file
      */
     private void processAndInsert_FROM_FILE(){
         try{
@@ -385,6 +596,17 @@ public class TuitionManagerController implements Initializable {
             e.printStackTrace();
         }
     }
+    /**
+     * updatemajor is a method that updates the major of a student in the roster
+     * it takes string user input and splits it into an array of strings
+     * if the length of the array is 4 and the roster is not empty then the code will do
+     * first checks to see if the major code is valid or not if it's not
+     * then it will generate an error message
+     * then it will look up the students in the roster and update their major
+     * then if the student is found in the roster list that person major
+     * will be changed once it has been successfully changed a success message will be printed out
+     * at the same time if that student wasn't found in the roster then an error message will be printed
+     */
     private void updateMajor(){
         if(!getMissingDataStatusForRoster() && !roster.isEmpty()){
             currentTabData();
@@ -403,6 +625,11 @@ public class TuitionManagerController implements Initializable {
             }
         }
     }
+    /**
+     * This method process the input and then remove student from the roster
+     * @throws NullPointerException if any of the date is null
+     * @throws IllegalArgumentException if the given data does not match the expected format (fname lname dob)
+     */
     private void processAndRemove(){
         try {
             if (!getMissingDataStatusForRoster() && !roster.isEmpty()) {
@@ -574,18 +801,38 @@ public class TuitionManagerController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * this method checks if any input field is missing or not in roster tab
+     * @return True if any field missing
+     */
     public boolean getMissingDataStatusForRoster(){
         return roster_firstName.getText().isBlank() || roster_lastName.getText().isBlank()
                 || roster_dob.getValue() == null || roster_creditsCompleted.getText().isBlank();
     }
+
+    /**
+     * this method checks if any input field is missing or not in enroll/drop tab
+     * @return True if any field missing
+     */
     public boolean getMissingDataStatusForEnroll(){
         return enroll_fname.getText().isBlank() || enroll_lname.getText().isBlank()
                 || enroll_dob.getValue() == null || enroll_Credits.getText().isBlank();
     }
+
+    /**
+     * this method checks if any input field is missing or not in scholarship tab
+     * @return True if any field missing
+     */
     public boolean getMissingDataStatusForSchp(){
         return schp_fname.getText().isBlank() || schp_lname.getText().isBlank()
                 || schp_dob.getValue() == null || schp_Amount.getText().isBlank();
     }
+
+    /**
+     * this method store field values to appropriate instances based
+     * on current selected tab
+     */
     @FXML
     protected void currentTabData(){
         if(roster_tab.isSelected()){
@@ -616,6 +863,11 @@ public class TuitionManagerController implements Initializable {
             schpAmnt = Double.parseDouble(schp_Amount.getText().trim());
         }
     }
+
+    /**
+     * this method handles tristate radio button and sets its sub radio button to be active
+     * @param event tristate radio button event
+     */
     @FXML
     protected void handleTriState(ActionEvent event){
         triState.setDisable(false);
@@ -627,14 +879,29 @@ public class TuitionManagerController implements Initializable {
             studyAbroad.setDisable(true);
         }
     }
+
+    /**
+     * this method fires tristate button to get preselected when any ny or ct button is clicked
+     * @param event NY and CT button event
+     */
     @FXML
     protected void handleNYandCTbtn(ActionEvent event){
         triState.fire();
     }
+
+    /**
+     * this method fires intl button to get preselected when studyAbroad button is clicked
+     * @param event studyAbroad checkbox event
+     */
     @FXML
     protected void handleStudyAbroadCheckBox(ActionEvent event){
         intl.fire();
     }
+
+    /**
+     *this method handles intl radio button and sets its sub radio button to be active
+     * @param event intl radio button event
+     */
     @FXML
     protected void handleIntl(ActionEvent event){
         triState.setDisable(false);
@@ -646,6 +913,11 @@ public class TuitionManagerController implements Initializable {
             ny.setDisable(true); ct.setDisable(true);
         }
     }
+
+    /**
+     * this method sets sub buttons of nonresident to be active when its clicked
+     * @param event non-resident check box event
+     */
     @FXML
     protected void isNonResident(ActionEvent event){
         if(nonResident.isSelected()){
@@ -670,16 +942,28 @@ public class TuitionManagerController implements Initializable {
             studyAbroad.setSelected(false);
         }
     }
+
+    /**
+     * this method sets major value based on user selection
+     * @param event combobox item selection event
+     */
     @FXML
     protected void getMajor(ActionEvent event){
         major = comboBox.getSelectionModel().getSelectedItem().toUpperCase();
     }
 
+    /**
+     * this method loads the given txt file to be processed
+     * @param event loadfrom file button event
+     */
     @FXML
     protected void LoadFromFile(ActionEvent event) {
         processAndInsert_FROM_FILE();
     }
-
+    /**
+     * this method adds student type based on user selection
+     * @param event add button event
+     */
     @FXML
     protected void addStudent(ActionEvent event) {
         if(nonResident.isSelected()){
@@ -697,26 +981,55 @@ public class TuitionManagerController implements Initializable {
             processAndInsert_RES_STUDENT();
         }
     }
+
+    /**
+     * this method enrolls student based on field values and enrolls if student is in roster
+     * @param event enroll button event
+     */
     @FXML
     protected void enrollStudent(ActionEvent event){
         processAndEnrollStudent();
     }
+
+    /**
+     * this method drops student based on field values and if that student is currently enrolled
+     * @param event drop button event
+     */
     @FXML
     protected void dropStudent(ActionEvent event){
         checkAndDropStudent();
     }
+
+    /**
+     * this method removes student if student is in roster
+     * @param event remove button event
+     */
     @FXML
     protected void removeStudent(ActionEvent event) {
         processAndRemove();
     }
+
+    /**
+     * this method updates major if student is in roster and based on user major selection
+     * @param event updateMajor button event
+     */
     @FXML
     protected void updateMajor(ActionEvent event) {
         updateMajor();
     }
+    /**
+     * this method updates scholarship amount to total tuition amount if student is enrolled
+     * and is a resident student
+     * @param event update scholarship amount button event
+     */
     @FXML
     protected void UpdateSchpAmount(ActionEvent event){
         ApplyScholarship();
     }
+    /**
+     * this method handles roster menuitems based on user selection and prints message appropriately
+     * @param event roster menu items event
+     */
     @FXML
     protected void handleRosterMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
@@ -725,6 +1038,10 @@ public class TuitionManagerController implements Initializable {
         bySchoolMajor.setOnAction(event12 -> messageArea.setText(roster.printBySchoolMajor()));
         byStanding.setOnAction(event13 -> messageArea.setText(roster.printByStanding()));
     }
+    /**
+     * this method handles school menuitems based on user selection and prints message appropriately
+     * @param event school menu items event
+     */
     @FXML
     protected void handleSchoolMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
@@ -734,6 +1051,10 @@ public class TuitionManagerController implements Initializable {
         SCandI.setOnAction(event13 -> messageArea.setText(roster.printBySchool("SC&I")));
         SOE.setOnAction(event14 -> messageArea.setText(roster.printBySchool("SOE")));
     }
+    /**
+     * this method handles enrollment menuitems based on user selection and prints message appropriately
+     * @param event enrollment menu items event
+     */
     @FXML
     protected void handleEnrollmentMenuItems(ActionEvent event){
         messageArea.setStyle(successMessage);
@@ -742,6 +1063,12 @@ public class TuitionManagerController implements Initializable {
         byTuitionDue.setOnAction(event12 -> printTuitionDue());
         bySemEnd.setOnAction(event13 -> updateCreditsCompletedAndPrint());
     }
+    /**
+     * this method initializes necessary values before user interacts with gui
+     * this method will be performed when the controller is first invoked
+     * @param url given url
+     * @param resourceBundle given resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         roster = new Roster();

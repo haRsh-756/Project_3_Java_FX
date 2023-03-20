@@ -4,7 +4,7 @@ package com.example.project3fx;
  * Resident class: subclass of Student
  * helps to create resident object based on student details
  * scholarship is available for only resident students
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class Resident extends Student{
     /**

@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 /**
  * Date test class to test 5 valid and 2 invalid date objects
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class DateTest {
     /**

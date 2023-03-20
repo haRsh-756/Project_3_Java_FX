@@ -2,7 +2,7 @@ package com.example.project3fx;
 
 /**
  * major and it's codes and schools that offers it
- * @author harsh_patel, samirroshan
+ * @author harsh_patel and giancarlo_Andretta
  */
 public enum Major {
     /**

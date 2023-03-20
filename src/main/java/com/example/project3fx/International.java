@@ -2,7 +2,7 @@ package com.example.project3fx;
 /**
  * International class: subclass of Nonresident
  * helps to create non-resident International object based on student details
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class International extends NonResident{
     /**

@@ -2,7 +2,7 @@ package com.example.project3fx;
 /**
  * NonResident class: subclass of Student
  * helps to create non-resident object based on student details
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class NonResident extends Student{
 

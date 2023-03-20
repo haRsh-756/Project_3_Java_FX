@@ -3,7 +3,7 @@ package com.example.project3fx;
 /**
  * Tristate class: subclass of Non-resident
  * helps to create non-resident tri-state object based on student details
- * @author harsh_patel
+ * @author harsh_patel and giancarlo_Andretta
  */
 public class TriState extends NonResident{
     /**
