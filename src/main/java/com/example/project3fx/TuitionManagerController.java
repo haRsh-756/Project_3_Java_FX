@@ -1074,7 +1074,7 @@ public class TuitionManagerController implements Initializable {
         roster = new Roster();
         enrollment = new Enrollment();
         ObservableList<String> options = FXCollections.observableArrayList(
-                        Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name()
+                        Major.CS.name(), Major.EE.name(), Major.ITI.name(), Major.BAIT.name(), Major.MATH.name()
         );
         comboBox.setItems(options);
         triState.setToggleGroup(nonRes);
