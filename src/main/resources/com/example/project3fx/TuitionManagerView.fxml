@@ -127,9 +127,9 @@
                                                 <Button fx:id="changerMajor" alignment="CENTER" mnemonicParsing="false" onAction="#updateMajor" text="Change Major" />
                                                 <Button fx:id="fromFile" alignment="CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#LoadFromFile" prefHeight="36.0" prefWidth="132.0" text="Load From File" />
                                             </buttons>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
                                         </ButtonBar>
                                         <TextField fx:id="roster_creditsCompleted" prefHeight="26.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                         <TextField fx:id="roster_lastName" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -175,7 +175,7 @@
                                             </GridPane.margin>
                                         </Label>
                                         <DatePicker fx:id="enroll_dob" prefHeight="26.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <Label styleClass="LabelText" text="Credits Completed" GridPane.rowIndex="3">
+                                        <Label styleClass="LabelText" text="Credits" GridPane.rowIndex="3">
                                             <GridPane.margin>
                                                 <Insets left="25.0" />
                                             </GridPane.margin>
