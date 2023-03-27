@@ -508,7 +508,8 @@ public class TuitionManagerController implements Initializable {
         }catch (NullPointerException e1){
             e1.printStackTrace();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            messageArea.setStyle(errorMessage);
+            messageArea.setText("File not found \nexpected studentList.txt");
         }
     }
     /**
