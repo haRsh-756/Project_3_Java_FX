@@ -3,11 +3,11 @@
 Your team will develop the software to add functionalities for processing the tuitions based on the enrollment of the semester. For tuition purpose, students are classified as New Jersey resident and non-
 New Jersey resident. International students are considered as non-resident and pay health insurance fee. The table below shows the tuition and fees for a single semester. Tuition/Fees
 
-  # Full Time Students Parttime Students
-  # Resident, Non-Resident, International, Resident, Non-Resident
-  # Tuition: $12,536, $29,737, $404 per credit hour, $966 per credit hour
-  # University Fee $3,268, 80% of full-time rate
-  # Health Insurance Fee not applicable $2,650 not applicable
+  - Full Time Students Parttime Students
+  - Resident, Non-Resident, International, Resident, Non-Resident
+  - Tuition: $12,536, $29,737, $404 per credit hour, $966 per credit hour
+  - University Fee $3,268, 80% of full-time rate
+  - Health Insurance Fee not applicable $2,650 not applicable
   
 Students enrolled more than 16 credit hours will pay additional for the credit hours exceed 16, using the same per
 credit hour rate as the parttime students. Students enrolled at least 12 credits are considered as full time, otherwise
