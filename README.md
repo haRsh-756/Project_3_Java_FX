@@ -1,4 +1,4 @@
-# Project_3_Java_FX
+# Project_3_Java_FX (Tuition Manager)
 
 Your team will develop the software to add functionalities for processing the tuitions based on the enrollment of the semester. For tuition purpose, students are classified as New Jersey resident and non-
 New Jersey resident. International students are considered as non-resident and pay health insurance fee. The table below shows the tuition and fees for a single semester. Tuition/Fees
